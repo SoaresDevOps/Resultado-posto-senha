@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .result {
+            min-width: 1200px;
+            min-height: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        .dr {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="result">
+        <h2  style="font-size: 29px;"></h2>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        // Definindo cores para cada médico
+        const cores = {
+            "Jane": "#ff0000",    // Vermelho
+            "Luana": "#0000ff",   // Azul
+            "Osmair": "#008000",  // Verde
+            "Amanda": "#ffa500",  // Laranja
+            "Arthur": "#800080"   // Roxo
+        };
+
+        // Função para atualizar os dados na página
+        function atualizarDados() {
+            var dados = localStorage.getItem('dadosFormulario');
+
+            if (dados) {
+                dados = JSON.parse(dados);
+
+                // Exibe os dados na página
+                var resultadoDiv = document.getElementById('resultado');
+                resultadoDiv.innerHTML = `<p class="sala" style="color: ${cores[dados.sala]}; font-size: 80px">Sala: ${dados.sala}</p>`;
+
+                
+                resultadoDiv.innerHTML += `<p style="font-size: 80px;">Senha: N° ${dados.senha}</p>`;
+                
+                
+                resultadoDiv.innerHTML += `<p class="dr" style="color: ${cores[dados.dr]}; font-size: 80px">Dr(a): ${dados.dr}</p>`;
+
+                
+            
+            
+            }
+        }
+
+        // Chama a função para atualizar os dados quando a página carrega
+        window.onload = atualizarDados;
+
+        // Configura um evento para detectar alterações no localStorage
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'dadosFormulario') {
+                atualizarDados();
+            }
+        });
+    </script>
+</body>
+</html>
